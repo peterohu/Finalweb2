@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTTSV</title>
+    <!--navbar-->
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    
+   
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard">HỆ THỐNG THÔNG TIN SINH VIÊN <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="#"><%= user.fullname %> <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout">Đăng xuất <span class="sr-only">(current)</span></a>
+          </li>
+          <% if(user.role == 'student') { %>
+          <li class="nav-item active">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+              Update Your Info
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    
+                    <form action="/updateUser" method="POST">
+                      <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input name="fullname" type="text" class="form-control" id="studentName" placeholder="Name..." required>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="studentFalcuty">Student Falcuty</label>
+                        <input name="falcuty" type="text" class="form-control" id="studentFalcuty" placeholder="Falcuty..." required>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="studentClass">Student Class</label>
+                        <input name="inclass" type="text" class="form-control" id="studentClass" placeholder="Class..." required>
+                      </div>
+                      <label for="studentAvatar">Student Avatar</label>
+
+                      <div class="form-group input-group">
+                        <div class="custom-file">
+                          
+                          <input type="file" class="custom-file-input" id="inputGroupFile01">
+                          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </li>
+          <% } %> 
+          <% if(user.role == 'falcuty') { %>
+            <li class="nav-item active">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                Update Password
+              </button>
+  
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <form action="/updatePassword" method="POST">
+                        <div class="form-group">
+                          <label for="studentName">Current Password</label>
+                          <input name="password" type="password" class="form-control" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentFalcuty">New Password</label>
+                          <input name="newpassword" type="password" class="form-control" required>
+                        </div>
+  
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                      </form>
+  
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item active">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#CreateMessage">
+                Post New Message
+              </button>
+  
+              <div class="modal fade" id="CreateMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">New Message</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <form action="/dashboard/postMessage" method="POST">
+                        <div class="form-group">
+                          <label for="studentName">Message Title</label>
+                          <input name="title" type="text" class="form-control" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentFalcuty">Message Content</label>
+                          <input name="message" type="text" class="form-control" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentClass">Falcuty</label>
+                          <input name="falcuty" type="text" class="form-control" required>
+                        </div>
+  
+                        <button type="submit" class="btn btn-primary">Post</button>
+                      </form>
+  
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% } %>
+          <% if(user.role == 'admin') { %>
+            <li class="nav-item active">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                Create New Account
+              </button>
+  
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Create New Account</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <form action="/addUser" method="POST">
+                        <div class="form-group">
+                          <label for="studentName">Account's Email:</label>
+                          <input name="email" type="email" class="form-control" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentFalcuty">Account's Password:</label>
+                          <input name="password" type="password" class="form-control" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentClass">Account's Fullname:</label>
+                          <input name="fullname" type="text" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="studentClass">Account's Falcuty:</label>
+                          <input name="falcuty" type="text" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="role">Account's Role:</label>
+                          <select name="role">
+                            <option value="admin">New Admin</option>
+                            <option value="falcuty">New Falcuty</option>
+                            <option value="student">New Student</option>
+                          </select>
+                        </div>
+  
+                        <button type="submit" class="btn btn-primary">Create</button>
+                      </form>
+  
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% } %>  
+
+          
+        </ul>
+    </nav>
+ 
+      <div class="container">
+        <br>
+ 
+        <div class="row">
+          <div class="col-md-3">
+      
+            <div class="hidden-sm hidden-xs">
+              
+              <hr>
+              
+              <div class="well">
+                
+                <h4>Tạo bài viết mới</h4>
+                <form action="/dashboard/posted" method="POST">
+                  <div class="input-group">                   
+                    <textarea name="content" class="form-control" aria-label="With textarea"></textarea>
+                  </div><br>
+                  <button type="submit" class="btn btn-sm btn-warning">Gửi</button>
+                </form>
+                
+                <hr>
+                <a class="btn btn-secondary" href="/messages" role="button">Ấn vào đây để xem tất cả thông báo</a>
+                <br><br>
+
+                
+  
+                <!---->
+
+                
+                <!---->
+
+                <div class="row">
+                  <% if(messages) {messages = messages.reverse(); messages.forEach(message => { %> 
+                    <div class="col-sm-12">
+                      <h5 class="title"><a class="text-info" href="/messages/<%= message._id %> " ><%= message.title %> </a></h5>
+                      <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span><%= message.createAt %> </p>
+                      <p><%= message.message %> 
+                        </p><p class="text-muted">Presented by <%= message.falcuty %>  | Ngày đăng <%= message.createAt %> 
+                        </p>
+                    </div>
+                  <% })} %>
+                </div>
+                <hr>
+                
+               
+
+              </div>            
+            </div>
+            
+          </div>
+          <div class="col-md-9">
+            
+            
+           <!--Right-->
+            <hr>
+            <% if(posts) {posts = posts.reverse(); posts.forEach(post => { %>
+            <div class="row">
+              
+              <div class="col-sm-12">
+
+                <% if(user.fullname == post.user) { %> 
+                <div>
+                  <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#editbtn<%= post._id %>"><i class="far fa-edit"></i></button>
+                  <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#delbtn<%= post._id %>"><i class="far fa-trash-alt"></i></button>
+                </div>
+                <% } %>
+                <!--Modal edit btn-->
+                <div class="modal fade" id="editbtn<%= post._id %>" tabindex="-1" role="dialog" aria-labelledby="editbtn" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editbtn">Chỉnh sửa bài đăng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="/messages/update/<%= post._id %>" method="POST">
+                          <div class="form-group row">
+                            <label for="title" class="col-sm-2 col-form-label">Tiêu đề</label>
+                            <div class="col-sm-10">
+                              <input name="title" type="text" class="form-control" id="title" >
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="content" class="col-sm-2 col-form-label">Nội dung</label>
+                            <div class="col-sm-10">
+                              <textarea name="message" type="content" class="form-control" id="content"></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="falcuty" class="col-sm-2 col-form-label">Khoa</label>
+                            <div class="col-sm-10">
+                              <input name="falcuty" type="text" class="form-control" id="falcuty" >
+                            </div>
+                          </div>
+                          <button type="submit" class=" form-group btn btn-success mb-2">Post it</button>
+                        </form>
+                      </div>
+                      <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <!---->
+
+                <!--Modal del btn-->
+                <div class="modal fade" id="delbtn<%= post._id %>" tabindex="-1" role="dialog" aria-labelledby="delbtn" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editbtn">Xóa bài đăng của <%= post._id %> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Xóa thiệt đó nha!
+                      </div>
+                      <div class="modal-footer">
+                        <form action="/dashboard/deletePost/<%= post._id %>" method="POST">
+                          <button type="submit" class="btn btn-danger">Xóa ngay và luôn</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="title"><a href="/dashboard/<%= post.user %>"><%= post.user %></a></h3>
+                <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span><%= post.createAt %></p>
+                <p><%= post.post %></p>
+                
+                <!--Comment-->
+                <div class="input-group mb-3 mt-3">
+                  <form action="/dashboard/comment" method="POST">
+                    <input name="comment" type="text" class="form-control" placeholder="Vui lòng nhập bình luận"><br>
+                    <input type="hidden" name="postID" value="<%= post._id %>">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-warning">Gửi</button>
+                    </div>
+                  </form>
+                </div>
+                <a data-toggle="collapse" href="#comments<%= post._id %>" role="button" aria-expanded="false" aria-controls="comments<%= post._id %>"><span class="pull-right readmore">Xem bình luận</span></a>
+
+                <div class="collapse"  id="comments<%= post._id %>" >                          
+                    
+                    <hr>
+                    <% if(comments) {comments = comments.reverse(); comments.forEach(comment => { %>
+                      <% if(comment.postID == post._id) { %>
+                        <div class="post_wrapper">
+                          <% if(user.fullname == comment.user) { %> 
+                            <form action="/dashboard/comment/delete/<%= comment._id %>" method="post">
+                              <div>
+                                  <!-- <button type="button" class="btn btn-sm"><i class="far fa-edit"></i></button> -->
+                                  <button type="submit" class="btn btn-sm"><i class="far fa-trash-alt"></i></button>
+                              </div>
+                            </form>
+                          <% } %> 
+                            <br>
+                            <h5><%= comment.user %></h5>
+                            <span class="date"><%= comment.createAt %></span>
+                            <p class="txt"><%= comment.comment %></p>
+                        </div>
+                        <br>
+                      <% } %> 
+                    <% })} %>
+                </div>  
+            </div>
+            </div>
+            <hr>
+            <% })} %>
+            
+                
+              </div>
+            <hr>
+           
+            
+        
+            
+            
+          </div>
+        </div>
+      </div>
+      
+<script>
+    window.addEventListener('load', function() 
+{  
+  function CollapseComments($maxH) {
+    var $expandText = '<span>Expand Comment</span>';
+    var $collapseText = '<span>Collapse Comment</span>';
+    
+    // Get the comments
+    var $comments = document.getElementsByClassName('comment');
+    // Go through each comment
+    for (i = 0; i < $comments.length; i++) {
+      var $content = $comments[i].getElementsByClassName('comment-content')[0];
+      var $cH = $content.offsetHeight;
+      // Check if the comment exceed the max height
+      if ($cH < $maxH)
+        continue;
+      
+      $content.classList.add('collapsed');
+      $content.setAttribute('style', 'max-height:'+$maxH+'px');
+      
+      // Initialize the collapse 'button'
+      var $collapse = document.createElement('div');
+      $collapse.setAttribute('class', 'comment-collapse');
+      $collapse.innerHTML = $expandText;
+      
+      // The onClick function
+      // Written out as a function and then converted
+      // into a string for the sake of readability/debugging
+      var $func = function() {
+        $c = this.parentNode.getElementsByClassName('comment-content')[0];
+        this.classList.toggle('expanded');
+        $c.classList.toggle('collapsed');
+        $c.setAttribute('style','max-height: '+$cH+'px');
+        $c.offsetHeight;
+        if (this.classList.contains('expanded')) {
+          this.innerHTML = $collapseText;
+          $c.setAttribute('style','max-height: '+$cH+'px');
+        } 
+        if (!this.classList.contains('expanded')) {
+          this.innerHTML = $expandText;
+          $c.setAttribute('style','max-height: '+$maxH+'px');
+        }
+      };
+
+      // Get function string
+      var $fs = FunctionToString($func);
+      // Replace the variables
+      $fs = $fs.replace("'+$maxH+'", $maxH).replace("'+$cH+'", $cH).replace('$collapseText', "'"+$collapseText+"'").replace('$expandText', "'"+$expandText+"'");
+      
+      $collapse.setAttribute('onClick', $fs);
+      // Reset max-height to auto when the transition is done
+      $collapse.addEventListener('transitionend', function(event) {
+        $c = this.parentNode.getElementsByClassName('comment-content')[0];
+        if (this.classList.contains('expanded')) {
+          $c.setAttribute('style','');
+          this.removeEventListener('transitionend', transitionEnd, false);
+        }
+      }, false);
+      
+      $commentparent = $comments[i].parentNode;
+      $comments[i].appendChild($collapse);
+    }
+    
+    function FunctionToString($func) {
+      // Get string of function
+      var $s = $func+'';    
+      // Remove unnecessary whitespace
+      $s = $s.replace(/\s+/g, '');
+      // Pull out just the body of the function
+      $s = $s.substring(11,$s.length-1);
+      return $s;
+    }
+  }
+  
+  CollapseComments(250);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTTSV</title>
+    <!--navbar-->
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    
+   
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/dashboard">HỆ THỐNG THÔNG TIN SINH VIÊN <span class="sr-only">(current)</span></a>
+            </li>
+  
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><%= user.fullname %> <span class="sr-only">(current)</span></a>
+            </li>
+  
+            <li class="nav-item active">
+              <a class="nav-link" href="/logout">Đăng xuất <span class="sr-only">(current)</span></a>
+            </li>
+            <% if(user.role == 'student') { %>
+            <li class="nav-item active">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                Update Your Info
+              </button>
+  
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Account</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <form action="/updateUser" method="POST">
+                        <div class="form-group">
+                          <label for="studentName">Student Name</label>
+                          <input name="fullname" type="text" class="form-control" id="studentName" placeholder="Name..." required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentFalcuty">Student Falcuty</label>
+                          <input name="falcuty" type="text" class="form-control" id="studentFalcuty" placeholder="Falcuty..." required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentClass">Student Class</label>
+                          <input name="inclass" type="text" class="form-control" id="studentClass" placeholder="Class..." required>
+                        </div>
+                        <label for="studentAvatar">Student Avatar</label>
+  
+                        <div class="form-group input-group">
+                          <div class="custom-file">
+                            
+                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                          </div>
+                        </div>
+  
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+  
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </li>
+            <% } %> 
+            <% if(user.role == 'falcuty') { %>
+              <li class="nav-item active">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                  Update Password
+                </button>
+    
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        
+                        <form action="/updatePassword" method="POST">
+                          <div class="form-group">
+                            <label for="studentName">Current Password</label>
+                            <input name="password" type="password" class="form-control" required>
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="studentFalcuty">New Password</label>
+                            <input name="newpassword" type="password" class="form-control" required>
+                          </div>
+    
+                          <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item active">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#CreateMessage">
+                  Post New Message
+                </button>
+    
+                <div class="modal fade" id="CreateMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        
+                        <form action="/dashboard/postMessage" method="POST">
+                          <div class="form-group">
+                            <label for="studentName">Message Title</label>
+                            <input name="title" type="text" class="form-control" required>
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="studentFalcuty">Message Content</label>
+                            <input name="message" type="text" class="form-control" required>
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="studentClass">Falcuty</label>
+                            <input name="falcuty" type="text" class="form-control" required>
+                          </div>
+    
+                          <button type="submit" class="btn btn-primary">Post</button>
+                        </form>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% } %>
+            <% if(user.role == 'admin') { %>
+              <li class="nav-item active">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                  Create New Account
+                </button>
+    
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create New Account</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        
+                        <form action="/addUser" method="POST">
+                          <div class="form-group">
+                            <label for="studentName">Account's Email:</label>
+                            <input name="email" type="email" class="form-control" required>
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="studentFalcuty">Account's Password:</label>
+                            <input name="password" type="password" class="form-control" required>
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="studentClass">Account's Fullname:</label>
+                            <input name="fullname" type="text" class="form-control" required>
+                          </div>
+  
+                          <div class="form-group">
+                            <label for="studentClass">Account's Falcuty:</label>
+                            <input name="falcuty" type="text" class="form-control" required>
+                          </div>
+  
+                          <div class="form-group">
+                            <label for="role">Account's Role:</label>
+                            <select name="role">
+                              <option value="admin">New Admin</option>
+                              <option value="falcuty">New Falcuty</option>
+                              <option value="student">New Student</option>
+                            </select>
+                          </div>
+    
+                          <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% } %>  
+  
+            
+          </ul>
+      </nav>
+    <section class="py-5">
+        <div class="container">
+            <!-- FOR DEMO PURPOSE -->
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <header class="text-center">
+                        <h1 class="h2"><%= messages.title %> </h1>
+                    
+                    </header>
+                    
+                </div>
+            </div><!-- END -->
+            <div class="modal fade" id="EditMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Edit Message</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <form action="/messages/updateMessages/<%= messages._id %>" method="POST">
+                        <div class="form-group">
+                          <label for="studentName">Message Title</label>
+                          <input name="title" type="text" class="form-control" value="<%= messages.title %>" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentFalcuty">Message Content</label>
+                          <input name="message" type="text" class="form-control" value="<%= messages.message %>" required>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="studentClass">Falcuty</label>
+                          <input name="falcuty" type="text" class="form-control" value="<%= messages.falcuty %>" required>
+                        </div>
+  
+                        <button type="submit" class="btn btn-primary">Post</button>
+                      </form>
+  
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+    
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <a class="btn btn-success mb-5" type="button" href="/messages">Go back</a>
+                    <a type="button" class="btn btn-warning mb-5" data-toggle="modal" data-target="#EditMessage">Edit</a>
+                    <form action="/messages/deleteMessages/<%= messages._id %>" method="POST">
+                        <button class="btn btn-danger mb-5" type="submit">Delete</button>
+                    </form>
+                    <!-- CUSTOM BLOCKQUOTE -->
+                    <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
+                        <div class="blockquote-custom-icon bg-info shadow-sm"><i class="fa fa-quote-left text-white"></i></div>
+                        <p class="mb-0 mt-2 font-italic"><%= messages.message %> </p>
+                        <footer class="blockquote-footer pt-4 mt-4 border-top"><%= messages.createAt %>
+                            <cite title="Source Title"><%= messages.falcuty %> </cite>
+                        </footer>
+                    </blockquote><!-- END -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>
